@@ -1,80 +1,91 @@
-<!DOCTYPEhtml>  
-<html ng-app="tModule"> 
-  
-    <head>  
-        <script src="Scripts/angular.min.js"></script>         
+<!DOCTYPEhtml>
+    <html ng-app="tModule">
+
+    <head>
+        <script src="Scripts/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="Scripts/script.js"></script>      
+        <script src="Scripts/script.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="CSS/estilos.css">
 
-        <title></title>  
-        <meta char set="utf-8" />  
+        <title></title>
+        <meta char set="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>  
-  
+    </head>
+
     <body>
-            <div class="container">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2>Cadastrar <b>Clientes</b></h2>
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="#addCustomerModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Incluir Novo</span></a>
-                            </div>
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Cadastrar <b>Clientes</b></h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="#addCustomerModal" class="btn btn-success" data-toggle="modal"><i
+                                    class="material-icons">&#xE147;</i> <span>Incluir Novo</span></a>
                         </div>
                     </div>
-        <div ng-controller="tController" >  
-        <table  class="table table-striped table-hover">  
-            <thead>  
-                <tr>  
-                        
-                    <th colspan="2">  
-                        Nome Fantasia  
-                    </th>   
-                    <th colspan="2">  
-                        Razão Social  
-                    </th>   
-                </tr>  
-            </thead>  
-            <tbody>
-            <tr ng-repeat="s in customers" >                  
-                        
-                <td colspan="2">  
-                    {{s.tradingName}}  
-                </td>        
-                <td>  
-                    {{s.companyName}}  
-                </td>        
-                <td>
-                        <a  href="#showCustomerModal" ng-click="showCustomer('show', s)"  style="float: right;"class="show" data-toggle="modal"><i data-id="{{s.id}}" class="open-showCustomerModal material-icons" data-toggle="tooltip" title="Visualizar">&#xe02f;</i></a>
-                        <a  href="#editCustomerModal" ng-click="showCustomer('edit', s)"  style="float: right;" class="edit" data-toggle="modal"><i data-id="{{s.id}}" class="open-editCustomerModal material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a  href="#deleteCustomerModal"  style="float: right;"class="delete" data-toggle="modal"><i data-id="{{s.id}}" class="open-deleteCustomerModal material-icons" data-toggle="tooltip" title="Excluir">&#xE872;</i></a>
-                    </td>                
-                </tr>
-            </tbody>  
-            </table>  
-            <div class="clearfix">
-                    <div class="hint-text">Total de <b>{{customers.length }}</b> clientes cadastrados</div>
+                </div>
+                <div ng-controller="tController">
+                    <label style="float:right;"> Filtro: <input type="text" ng-model="criteria"></label>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+
+                                <th colspan="2">
+                                    Nome Fantasia
+                                </th>
+                                <th colspan="2">
+                                    Razão Social
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="s in customers | filter:criteria">
+
+                                <td colspan="2">
+                                    {{s.tradingName}}
+                                </td>
+                                <td>
+                                    {{s.companyName}}
+                                </td>
+                                <td>
+                                    <a href="#editCustomerModal" ng-click="showCustomer('edit', s)"
+                                        style="float: right;" class="edit" data-toggle="modal"><i data-id="{{s.id}}"
+                                            class="open-editCustomerModal material-icons" data-toggle="tooltip"
+                                            title="Editar">&#xE254;</i></a>
+                                    <a href="#deleteCustomerModal" style="float: right;" class="delete"
+                                        data-toggle="modal"><i data-id="{{s.id}}"
+                                            class="open-deleteCustomerModal material-icons" data-toggle="tooltip"
+                                            title="Excluir">&#xE872;</i></a>
+                                    <a href="#showCustomerModal" ng-click="showCustomer('show', s)"
+                                        style="float: right;" class="show" data-toggle="modal"><i data-id="{{s.id}}"
+                                            class="open-showCustomerModal material-icons" data-toggle="tooltip"
+                                            title="Visualizar">&#xe8b6;</i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
+                        <div class="hint-text">Total de <b>{{customers.length }}</b> clientes cadastrados</div>
+                    </div>
                 </div>
             </div>
-        </div>          
-    </div>
-    <div id="addCustomerModal" class="modal fade">
+        </div>
+        <div id="addCustomerModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form>
-                        <div class="modal-header">						
+                        <div class="modal-header">
                             <h4 class="modal-title">Incluir Cliente</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label>Nome Fantasia</label>
                                 <input id="newName" type="text" class="form-control" required>
@@ -89,20 +100,21 @@
                             </div>
                             <div class="form-group">
                                 <label>CNPJ</label>
-                                <input id="newCnpj"  type="text" class="form-control" required>
+                                <input id="newCnpj" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Telefone</label>
                                 <input id="newPhone" type="text" class="form-control" required>
-                            </div>					
+                            </div>
                             <div class="form-group">
-                                <label>Endereco</label>
+                                <label>Endereço</label>
                                 <input id="newAddress" type="text" class="form-control" required>
-                            </div>			
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input  type="submit" class="btn btn-success" value="Incluir"  onclick="javascript:newCustomer()">
+                            <input type="submit" class="btn btn-success" value="Incluir"
+                                onclick="javascript:newCustomer()">
                         </div>
                     </form>
                 </div>
@@ -111,57 +123,57 @@
         <!-- Show Modal HTML -->
 
         <div id="showCustomerModal" class="modal fade">
-                        <div class="modal-dialog"> 
-                            <div class="modal-content">
-                                <form>
-                                        <div class="modal-header">						
-                                            <h4 class="modal-title">Detalhes Cliente</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        </div>
-                                        <div class="modal-body">					
-                                            <div class="form-group">                                                
-                                                <label>Nome Fantasia</label>                                                
-                                                <input id="showName" type="text" class="form-control" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Razão Social</label>
-                                                <input id="showCoName" type="text" class="form-control" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input id="showEmail" type="email" class="form-control" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>CNPJ</label>
-                                                <input id="showCnpj"  type="text" class="form-control" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Telefone</label>
-                                                <input id="showPhone" type="text" class="form-control" readonly>
-                                            </div>		
-                                            <div class="form-group">
-                                                <label>Endereco</label>
-                                                <input id="showAddress" type="text" class="form-control" readonly>
-                                            </div>			
-                                        </div>
-                                        <div class="modal-footer">
-                                            <input type="submit" class="btn btn-default" onclick="javascript:clicou();" value="Fechar">
-                                        </div>
-
-                                </form>
-                            </div>
-                        </div>
-        </div>        
-        <!-- Edit Modal HTML -->
-        <div id="editCustomerModal" class="modal fade">
-            <div class="modal-dialog"> 
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <form>
-                        <div class="modal-header">						
+                        <div class="modal-header">
+                            <h4 class="modal-title">Detalhes Cliente</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Nome Fantasia</label>
+                                <input id="showName" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Razão Social</label>
+                                <input id="showCoName" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input id="showEmail" type="email" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>CNPJ</label>
+                                <input id="showCnpj" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input id="showPhone" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Endereço</label>
+                                <input id="showAddress" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-default" onclick="javascript:clicou();" value="Fechar">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Edit Modal HTML -->
+        <div id="editCustomerModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form>
+                        <div class="modal-header">
                             <h4 class="modal-title">Editar Cliente</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label>Nome Fantasia</label>
                                 <input id="editName" type="text" class="form-control" required>
@@ -176,21 +188,22 @@
                             </div>
                             <div class="form-group">
                                 <label>CNPJ</label>
-                                <input id="editCnpj"  type="text" class="form-control" required>
+                                <input id="editCnpj" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Telefone</label>
                                 <input id="editPhone" type="text" class="form-control" required>
-                            </div>		
+                            </div>
                             <div class="form-group">
-                                <label>Endereco</label>
+                                <label>Endereço</label>
                                 <input id="editAddress" type="text" class="form-control" required>
-                            </div>	                            	
+                            </div>
                         </div>
                         <div class="modal-footer">
-                                <input type="text" id="customerId" value="" style="visibility: hidden; width: 0%"/>	
+                            <input type="text" id="customerId" value="" style="visibility: hidden; width: 0%" />
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="submit" class="btn btn-info" value="Confirmar"  onclick="javascript:editCustomer()">
+                            <input type="submit" class="btn btn-info" value="Confirmar"
+                                onclick="javascript:editCustomer()">
                         </div>
                     </form>
                 </div>
@@ -201,24 +214,25 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form>
-                        <div class="modal-header">						
+                        <div class="modal-header">
                             <h4 class="modal-title">Excluir Cliente</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
+                        <div class="modal-body">
                             <p>Confirma a exclusão dos clientes selecionados?</p>
                             <p class="text-warning"><small>Esta ação não poderá ser desfeita</small></p>
-                            <input type="text" id="customerId" value="" style="visibility: hidden;"/>
+                            <input type="text" id="customerId" value="" style="visibility: hidden;" />
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="submit" class="btn btn-danger" value="Excluir" onclick="javascript:deleteCustomer();">
+                            <input type="submit" class="btn btn-danger" value="Excluir"
+                                onclick="javascript:deleteCustomer();">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    
-    </body>  
-  
-    </html>  
+
+    </body>
+
+    </html>
