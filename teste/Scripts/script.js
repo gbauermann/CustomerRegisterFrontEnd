@@ -2,6 +2,11 @@
 const wsUrl = 'https://localhost:44380/api/customer'
 getCustomers();
 
+$(document).ready(function(){
+	// Activate tooltip
+	$('[data-toggle="tooltip"]').tooltip();	
+});
+
 function getCustomers(){
     var tApp = 
     angular.
@@ -22,7 +27,8 @@ function getCustomers(){
             $('#' + nForm + 'Address').val(customer.address);   
             
             $(".modal-footer #customerId").val( customer.id );
-        };    
+        };   
+
         
     });
 }
@@ -41,14 +47,6 @@ function editCustomer(){
             PhoneNumber: $("#editPhone").val()
        };
 
-    // $.put(wsUrl + '/' + cId, 
-    //                 )
-    //         .done(function(data){                    
-    //             $('#editCustomerModal').modal('hide');    
-    //             location.reload();                                         
-    //     });
-               
-       debugger;
     $.ajax({
         type: "PUT",
         url: wsUrl + '/' + cId,
@@ -78,9 +76,9 @@ function newCustomer(){
 }
 
 function deleteCustomer(){
-   
+       
     var cId = $(".modal-body #customerId").val();
- 
+   
     $.ajax({
         url: wsUrl + '/' + cId,
         type: 'DELETE',

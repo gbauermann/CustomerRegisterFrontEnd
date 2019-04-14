@@ -10,33 +10,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="estilos.css">
-
-<script type="text/javascript">
-$(document).ready(function(){
-	// Activate tooltip
-	$('[data-toggle="tooltip"]').tooltip();
-	
-	// Select/Deselect checkboxes
-	var checkbox = $('table tbody input[type="checkbox"]');
-	$("#selectAll").click(function(){
-		if(this.checked){
-			checkbox.each(function(){
-				this.checked = true;                        
-			});
-		} else{
-			checkbox.each(function(){
-				this.checked = false;                        
-			});
-		} 
-	});
-	checkbox.click(function(){
-		if(!this.checked){
-			$("#selectAll").prop("checked", false);
-		}
-	});
-});
-</script>
+        <link rel="stylesheet" href="CSS/estilos.css">
 
         <title></title>  
         <meta char set="utf-8" />  
@@ -52,8 +26,7 @@ $(document).ready(function(){
                                 <h2>Cadastrar <b>Clientes</b></h2>
                             </div>
                             <div class="col-sm-6">
-                                <a href="#addCustomerModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Customer</span></a>
-                                <a href="#deleteCustomerModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+                                <a href="#addCustomerModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Incluir Novo</span></a>
                             </div>
                         </div>
                     </div>
@@ -61,13 +34,8 @@ $(document).ready(function(){
         <table  class="table table-striped table-hover">  
             <thead>  
                 <tr>  
-                        <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
-                            </th>
-                    <th>  
+                        
+                    <th colspan="2">  
                         Nome Fantasia  
                     </th>   
                     <th colspan="2">  
@@ -75,14 +43,10 @@ $(document).ready(function(){
                     </th>   
                 </tr>  
             </thead>  
+            <tbody>
             <tr ng-repeat="s in customers" >                  
-                <td>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                            <label for="checkbox1"></label>
-                        </span>
-                    </td>         
-                <td>  
+                        
+                <td colspan="2">  
                     {{s.tradingName}}  
                 </td>        
                 <td>  
@@ -93,7 +57,8 @@ $(document).ready(function(){
                         <a  href="#editCustomerModal" ng-click="showCustomer('edit', s)"  style="float: right;" class="edit" data-toggle="modal"><i data-id="{{s.id}}" class="open-editCustomerModal material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                         <a  href="#deleteCustomerModal"  style="float: right;"class="delete" data-toggle="modal"><i data-id="{{s.id}}" class="open-deleteCustomerModal material-icons" data-toggle="tooltip" title="Excluir">&#xE872;</i></a>
                     </td>                
-                </tr>  
+                </tr>
+            </tbody>  
             </table>  
             <div class="clearfix">
                     <div class="hint-text">Total de <b>{{customers.length }}</b> clientes cadastrados</div>
@@ -116,28 +81,28 @@ $(document).ready(function(){
                             </div>
                             <div class="form-group">
                                 <label>Razão Social</label>
-                                <input id="newCoName" type="text" class="form-control">
+                                <input id="newCoName" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input id="newEmail" type="email" class="form-control">
+                                <input id="newEmail" type="email" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>CNPJ</label>
-                                <input id="newCnpj"  type="text" class="form-control">
+                                <input id="newCnpj"  type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Telefone</label>
-                                <input id="newPhone" type="text" class="form-control">
+                                <input id="newPhone" type="text" class="form-control" required>
                             </div>					
                             <div class="form-group">
                                 <label>Endereco</label>
-                                <input id="newAddress" type="text" class="form-control">
+                                <input id="newAddress" type="text" class="form-control" required>
                             </div>			
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="button" class="btn btn-success" value="Incluir"  onclick="javascript:newCustomer()">
+                            <input  type="submit" class="btn btn-success" value="Incluir"  onclick="javascript:newCustomer()">
                         </div>
                     </form>
                 </div>
@@ -203,29 +168,29 @@ $(document).ready(function(){
                             </div>
                             <div class="form-group">
                                 <label>Razão Social</label>
-                                <input id="editCoName" type="text" class="form-control">
+                                <input id="editCoName" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input id="editEmail" type="email" class="form-control">
+                                <input id="editEmail" type="email" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>CNPJ</label>
-                                <input id="editCnpj"  type="text" class="form-control">
+                                <input id="editCnpj"  type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Telefone</label>
-                                <input id="editPhone" type="text" class="form-control">
+                                <input id="editPhone" type="text" class="form-control" required>
                             </div>		
                             <div class="form-group">
                                 <label>Endereco</label>
-                                <input id="editAddress" type="text" class="form-control">
+                                <input id="editAddress" type="text" class="form-control" required>
                             </div>	                            	
                         </div>
                         <div class="modal-footer">
                                 <input type="text" id="customerId" value="" style="visibility: hidden; width: 0%"/>	
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="button" class="btn btn-info" value="Confirmar"  onclick="javascript:editCustomer()">
+                            <input type="submit" class="btn btn-info" value="Confirmar"  onclick="javascript:editCustomer()">
                         </div>
                     </form>
                 </div>
